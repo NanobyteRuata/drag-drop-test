@@ -16,7 +16,7 @@
   .left {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
     min-width: 216px;
   }
 
@@ -24,24 +24,24 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
 
     .row {
       display: flex;
       gap: 8px;
-      padding: 8px;
-      border: dotted 1px gray;
-      border-radius: 8px;
+
+      .element {
+        flex: 1;
+      }
+    }
+
+    .drag-placeholder {
+      flex: 1;
     }
   }
 }
 
-.template {
-  max-height: 19px;
-}
-
 .element {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +61,6 @@
 }
 
 .drag-placeholder {
-  flex: 1;
   border-radius: 8px;
   padding: 8px;
   border: dotted 1px gray;

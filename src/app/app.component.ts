@@ -109,6 +109,10 @@ export class AppComponent {
     this.rows = this.rows.filter((row) => row.children.length);
   }
 
+  canDrop(_: CdkDrag<any>, drop: CdkDropList<any>) {
+    return drop.data.length < 2;
+  }
+
   get columnListIds(): string[] {
     return this.rows
       .map((row, index) => ({ index, ...row }))
@@ -116,13 +120,7 @@ export class AppComponent {
       .map((row) => `columnList${row.index}`);
   }
 
-  connectedDropListForColumn(id: number): string[] {
-    return ['rowList', ...this.columnListIds].filter(
-      (strId) => strId !== `columnList${id}`
-    );
-  }
-
-  canDrop(_: CdkDrag<any>, drop: CdkDropList<any>) {
-    return drop.data.length < 2;
+  get rowListIdAndColumnListIds(): string[] {
+    return [...this.columnListIds, 'rowList'];
   }
 }

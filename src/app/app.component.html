@@ -40,12 +40,13 @@
         cdkDropListOrientation="horizontal"
         [cdkDropListData]="row.children"
         [cdkDropListEnterPredicate]="canDrop"
+        [cdkDropListConnectedTo]="rowListIdAndColumnListIds"
         (cdkDropListDropped)="onColumnDropped($event)">
       <div *ngFor="let element of row.children"
           class="element"
           [ngClass]="element.type"
-          [cdkDragData]="element"
-          cdkDrag>
+          cdkDrag
+          [cdkDragData]="element">
         <span>{{ element.type | titlecase }}</span>
         <span *cdkDragPlaceholder
             class="drag-placeholder">
@@ -55,4 +56,3 @@
     </div>
   </div>
 </div>
-<!-- <app-drag-drop-form></app-drag-drop-form> -->
