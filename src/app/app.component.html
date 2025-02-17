@@ -13,6 +13,11 @@
         [cdkDragData]="template"
         cdkDrag>
       {{ template.type | titlecase }}
+      <span *cdkDragPreview
+          class="drag-preview element template"
+          [ngClass]="template.type">
+        {{ template.type | titlecase }}
+      </span>
       <span *cdkDragPlaceholder
           class="drag-placeholder">
         Placeholder
@@ -45,6 +50,11 @@
           cdkDrag
           [cdkDragData]="element">
         <span>{{ element.type | titlecase }}</span>
+        <span *cdkDragPreview
+            class="drag-preview element"
+            [ngClass]="element.type">
+          {{ element.type | titlecase }}
+        </span>
         <span *cdkDragPlaceholder
             class="drag-placeholder">
           Placeholder
