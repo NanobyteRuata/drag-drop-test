@@ -8,9 +8,7 @@ import {
 } from './app.model';
 import { CommonModule } from '@angular/common';
 import {
-  CdkDrag,
   CdkDragDrop,
-  CdkDropList,
   copyArrayItem,
   DragDropModule,
   moveItemInArray,
@@ -109,15 +107,8 @@ export class AppComponent {
     this.rows = this.rows.filter((row) => row.children.length);
   }
 
-  canDrop(_: CdkDrag<any>, drop: CdkDropList<any>) {
-    return drop.data.length < 2;
-  }
-
   get columnListIds(): string[] {
-    return this.rows
-      .map((row, index) => ({ index, ...row }))
-      .filter((row) => row.children.length < 2)
-      .map((row) => `columnList${row.index}`);
+    return this.rows.map((_, index) => `columnList${index}`);
   }
 
   get rowListIdAndColumnListIds(): string[] {

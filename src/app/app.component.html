@@ -4,7 +4,7 @@
       cdkDropList
       cdkDropListSortingDisabled
       [cdkDropListData]="templates"
-      [cdkDropListConnectedTo]="columnListIds">
+      [cdkDropListConnectedTo]="rowListIdAndColumnListIds">
     <div class="title">
       <strong>Templates</strong>
     </div>
@@ -24,7 +24,6 @@
       id="rowList"
       #rowList="cdkDropList"
       cdkDropList
-      cdkDropListGroup
       [cdkDropListData]="rows"
       (cdkDropListDropped)="onRowDropped($event)">
     <div class="title">
@@ -39,7 +38,6 @@
         cdkDropList
         cdkDropListOrientation="horizontal"
         [cdkDropListData]="row.children"
-        [cdkDropListEnterPredicate]="canDrop"
         [cdkDropListConnectedTo]="rowListIdAndColumnListIds"
         (cdkDropListDropped)="onColumnDropped($event)">
       <div *ngFor="let element of row.children"
