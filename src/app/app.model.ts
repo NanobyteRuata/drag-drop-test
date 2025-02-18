@@ -34,3 +34,16 @@ export class HeadingElement extends Element {
     super();
   }
 }
+
+export type Elements = EmptyElement | TextElement | HeadingElement;
+
+export function cloneElement(element: HeadingElement | TextElement) {
+  switch (element.type) {
+    case ElementTypes.heading:
+      return new HeadingElement();
+    case ElementTypes.text:
+      return new TextElement();
+    default:
+      return new EmptyElement();
+  }
+}

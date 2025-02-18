@@ -1,94 +1,34 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-  ElementTypes,
-  EmptyElement,
-  HeadingElement,
-  TextElement,
   Row,
+  cloneElement,
+  Elements,
 } from './app.model';
 import { CommonModule } from '@angular/common';
-import {
-  CdkDragDrop,
-  copyArrayItem,
-  DragDropModule,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { RowComponent } from './row/row.component';
+import { TEMPLATES } from './app.constant';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, DragDropModule, RowComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  templates = [new HeadingElement(), new TextElement()];
+  templates = TEMPLATES;
+  rows: Row[] = [];
 
-  rows: Row[] = [
-    {
-      children: [new HeadingElement(), new TextElement()],
-    },
-    {
-      children: [new TextElement()],
-    },
-    {
-      children: [new TextElement(), new HeadingElement()],
-    },
-  ];
+  elements: Elements[] = [];
 
-  elements: (HeadingElement | TextElement)[] = [];
-
-  cloneElement(element: HeadingElement | TextElement) {
-    switch (element.type) {
-      case ElementTypes.heading:
-        return new HeadingElement();
-      case ElementTypes.text:
-        return new TextElement();
-      default:
-        return new EmptyElement();
-    }
-  }
-
-  onColumnDropped(event: CdkDragDrop<(HeadingElement | TextElement)[]>): void {
-    if (event.previousContainer.data === this.templates) {
-      copyArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-
-      // copyArrayItem doesn't deep clone nested objects.
-      // so, we re-assign the template with new element with same type
-      const clonedElement = this.cloneElement(
-        event.previousContainer.data[event.previousIndex]
-      );
-      event.previousContainer.data[event.previousIndex] = clonedElement;
-      return;
-    }
-
-    if (event.container !== event.previousContainer) {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-      this.rows = this.rows.filter((row) => row.children.length);
-    }
-
-    if (event.container === event.previousContainer) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
+  onColumnListChanged(): void {
+    this.rows = this.rows.filter((row) => row.children.length);
   }
 
   onRowDropped(event: CdkDragDrop<any[]>) {
-    const element = this.cloneElement(
+    const element = cloneElement(
       event.previousContainer.data[event.previousIndex]
     );
     let copyRow = this.rows;

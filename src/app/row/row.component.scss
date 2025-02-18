@@ -1,0 +1,39 @@
+.row {
+  display: flex;
+  gap: 8px;
+
+  .element {
+    flex: 1;
+  }
+}
+
+.element {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: lightblue;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: grab;
+
+  &.heading {
+    background-color: lightblue;
+  }
+
+  &.text {
+    background-color: beige;
+  }
+}
+
+.drag-placeholder {
+  flex: 1;
+  border-radius: 8px;
+  padding: 8px;
+  border: dotted 1px gray;
+  color: transparent;
+}
+
+.drag-preview {
+  width: 216px !important;
+}

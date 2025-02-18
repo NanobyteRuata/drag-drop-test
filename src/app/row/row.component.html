@@ -1,0 +1,25 @@
+<div [id]="id"
+    #columnList="cdkDropList"
+    class="row"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    [cdkDropListData]="row.children"
+    [cdkDropListConnectedTo]="connectedTo"
+    (cdkDropListDropped)="onColumnDropped($event)">
+  <div *ngFor="let element of row.children"
+      class="element"
+      [ngClass]="element.type"
+      cdkDrag
+      [cdkDragData]="element">
+    <span>{{ element.type | titlecase }}</span>
+    <span *cdkDragPreview
+        class="drag-preview element"
+        [ngClass]="element.type">
+      {{ element.type | titlecase }}
+    </span>
+    <span *cdkDragPlaceholder
+        class="drag-placeholder">
+      Placeholder
+    </span>
+  </div>
+</div>

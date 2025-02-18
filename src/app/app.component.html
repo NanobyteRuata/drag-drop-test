@@ -8,7 +8,7 @@
       <strong>Templates</strong>
     </div>
     <div *ngFor="let template of templates"
-        class="element template"
+        class="element"
         [ngClass]="template.type"
         [cdkDragData]="template"
         cdkDrag>
@@ -33,33 +33,12 @@
     <div class="title">
       <strong>Elements</strong>
     </div>
-    <div *ngFor="let row of rows; let index = index"
-        [id]="'columnList' + index"
-        #columnList="cdkDropList"
-        class="row"
+    <app-row *ngFor="let row of rows; let index = index"
         cdkDrag
         cdkDragDisabled
-        cdkDropList
-        cdkDropListOrientation="horizontal"
-        [cdkDropListData]="row.children"
-        [cdkDropListConnectedTo]="rowListIdAndColumnListIds"
-        (cdkDropListDropped)="onColumnDropped($event)">
-      <div *ngFor="let element of row.children"
-          class="element"
-          [ngClass]="element.type"
-          cdkDrag
-          [cdkDragData]="element">
-        <span>{{ element.type | titlecase }}</span>
-        <span *cdkDragPreview
-            class="drag-preview element"
-            [ngClass]="element.type">
-          {{ element.type | titlecase }}
-        </span>
-        <span *cdkDragPlaceholder
-            class="drag-placeholder">
-          Placeholder
-        </span>
-      </div>
-    </div>
+        [row]="row"
+        [id]="'columnList' + index"
+        [connectedTo]="rowListIdAndColumnListIds"
+        (columnListChanged)="onColumnListChanged()"/>
   </div>
 </div>
